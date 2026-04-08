@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Forangex • Work — Case studies & client stories</title>
+    
+    <!-- Tailwind CSS + core utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter + Playfair Display (elegant professional) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #141416;
+        }
+        .font-serif-alt {
+            font-family: 'Playfair Display', serif;
+        }
+        .soft-border {
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px -15px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+        .img-morph {
+            filter: grayscale(15%);
+            transition: all 0.5s ease;
+        }
+        .img-morph:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+        .review-card {
+            transition: all 0.25s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.08);
+        }
+        .underline-animate {
+            position: relative;
+        }
+        .underline-animate::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: currentColor;
+            transition: width 0.25s ease;
+        }
+        .underline-animate:hover::after {
+            width: 100%;
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- NAVIGATION — consistent with main brand, active work state -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-2xl font-bold tracking-tighter flex items-center">
+                <img src="../assets/forangex-solution.svg" alt="Forangex Solution" class="w-22 h-10 mr-2">
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-gray-600">
+                <a href="/" class="hover:text-black transition-colors">Services</a>
+                <a href="/work" class="text-black border-b-2 border-black pb-0.5">Work</a>
+                <a href="/#pricing" class="hover:text-black transition-colors">Pricing</a>
+                <a href="/#contact" class="hover:text-black transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="mailto:forangeinc@gmail.com" class="hidden sm:block border border-black px-5 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                    Start Project →
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-black focus:outline-none p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-8 space-y-6 text-center">
+            <a href="/" class="block text-xs font-bold uppercase tracking-widest text-gray-600">Services</a>
+            <a href="/work" class="block text-xs font-bold uppercase tracking-widest text-black">Work</a>
+            <a href="/#pricing" class="block text-xs font-bold uppercase tracking-widest text-gray-600">Pricing</a>
+            <a href="/#contact" class="block text-xs font-bold uppercase tracking-widest text-gray-600">Contact</a>
+            <a href="mailto:forangeinc@gmail.com" class="inline-block border border-black px-8 py-3 text-[10px] font-bold uppercase tracking-widest">Start Project</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION — centered text only, minimalist impact -->
+    <section class="border-b border-black/10 bg-gradient-to-b from-[#FDFBF7] to-white">
+        <div class="max-w-5xl mx-auto px-6 py-24 md:py-32 text-center">
+            <div class="inline-block mb-5">
+                <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-gray-400 bg-white/60 px-4 py-1.5 rounded-full">portfolio archive</span>
+            </div>
+            <h1 class="text-4xl md:text-7xl lg:text-8xl font-serif-alt italic tracking-tight text-gray-900 leading-[1.1] max-w-4xl mx-auto">
+                Where ideas become <br><span class="border-b-4 border-black">digital legacy</span>
+            </h1>
+            <p class="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mt-6 leading-relaxed">
+                Every project tells a story of precision, creativity, and measurable growth. 
+                Explore our finest work & client transformations.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs font-medium text-gray-500">
+                <span class="bg-gray-100 px-4 py-1.5 rounded-full">✦ 150+ successful deliveries</span>
+                <span class="bg-gray-100 px-4 py-1.5 rounded-full">✦ 98% client retention</span>
+                <span class="bg-gray-100 px-4 py-1.5 rounded-full">✦ 4.9/5 avg rating</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREVIOUS WORK SCREENSHOTS GALLERY — real project showcase -->
+    <section class="max-w-7xl mx-auto px-6 py-20">
+        <div class="text-center mb-14">
+            <span class="text-[11px] tracking-[0.3em] uppercase font-bold text-gray-500 bg-gray-100/80 px-4 py-1 rounded-full">featured work</span>
+            <h2 class="text-3xl md:text-4xl font-serif-alt italic mt-4">Screenshots of our most recent triumphs</h2>
+            <p class="text-gray-500 max-w-xl mx-auto mt-2">From fintech dashboards to AI-powered platforms — each visual speaks of craft.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
+                <div class="overflow-hidden h-64 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" 
+                         alt="NeoBank Analytics Dashboard" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Fintech</span>
+                        <span class="text-xs font-mono text-gray-400">2025</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2 mb-2">NeoBank Pulse Dashboard</h3>
+                    <p class="text-gray-600 text-sm">Real-time transaction analytics with AI fraud detection. 40% faster insights, deployed across 3 enterprise clients.</p>
+                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>React</span><span>Node.js</span><span>WebSockets</span></div>
+                </div>
+            </div>
+            <!-- Project 2 -->
+            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
+                <div class="overflow-hidden h-64 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80" 
+                         alt="EcoShop Cross-platform App" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">E‑commerce</span>
+                        <span class="text-xs font-mono text-gray-400">2025</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2 mb-2">EcoShop Marketplace</h3>
+                    <p class="text-gray-600 text-sm">Cross-platform mobile app for sustainable goods. Boosted conversions by 78% after UX overhaul & 1-click checkout.</p>
+                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Flutter</span><span>Firebase</span><span>Stripe</span></div>
+                </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
+                <div class="overflow-hidden h-64 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80" 
+                         alt="MediFlow Connect" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">HealthTech</span>
+                        <span class="text-xs font-mono text-gray-400">2024</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2 mb-2">MediFlow Connect</h3>
+                    <p class="text-gray-600 text-sm">Telemedicine & patient management portal deployed across 12 clinics, reduced wait times by 55%.</p>
+                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Next.js</span><span>Python</span><span>Twilio</span></div>
+                </div>
+            </div>
+            <!-- Project 4 -->
+            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
+                <div class="overflow-hidden h-64 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c2236b16?auto=format&fit=crop&w=1000&q=80" 
+                         alt="LogiTrack Supply Chain" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Logistics</span>
+                        <span class="text-xs font-mono text-gray-400">2025</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2 mb-2">LogiTrack AI</h3>
+                    <p class="text-gray-600 text-sm">Real-time fleet optimization with predictive ETA. 23% fuel reduction & 99.8% on-time delivery rate.</p>
+                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Vue.js</span><span>Go</span><span>Mapbox</span></div>
+                </div>
+            </div>
+            <!-- Project 5 -->
+            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
+                <div class="overflow-hidden h-64 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Creative Studio Portfolio" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Creative</span>
+                        <span class="text-xs font-mono text-gray-400">2024</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2 mb-2">Studio Noir Digital</h3>
+                    <p class="text-gray-600 text-sm">Award-winning immersive brand experience with WebGL + headless CMS. 210% increase in session duration.</p>
+                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Three.js</span><span>GSAP</span><span>Sanity</span></div>
+                </div>
+            </div>
+            <!-- Project 6 -->
+            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
+                <div class="overflow-hidden h-64 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Finwise Lending Platform" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">LendingTech</span>
+                        <span class="text-xs font-mono text-gray-400">2025</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2 mb-2">Finwise Lending Suite</h3>
+                    <p class="text-gray-600 text-sm">Automated underwriting & KYC platform, processed $40M+ in loans within first quarter.</p>
+                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Angular</span><span>Django</span><span>PostgreSQL</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- extra CTA for more work -->
+        <div class="text-center mt-14">
+            <a href="#contact-inline" class="inline-flex items-center gap-2 border-b border-black pb-1 text-sm font-medium uppercase tracking-wide hover:gap-3 transition-all">View all case studies →</a>
+        </div>
+    </section>
+
+    <!-- CLIENT REVIEWS & TESTIMONIALS — authentic feedback -->
+    <section class="bg-white border-y soft-border py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14">
+                <span class="text-[11px] tracking-[0.3em] uppercase font-bold text-gray-500 bg-gray-100 px-4 py-1 rounded-full">real voices</span>
+                <h2 class="text-3xl md:text-4xl font-serif-alt italic mt-4">What our clients say</h2>
+                <p class="text-gray-500 max-w-lg mx-auto mt-2">Trusted by founders, CTOs, and global brands.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“Forangex didn't just build our platform — they became strategic partners. The attention to security and scalability is unmatched. Our user base grew 3x in 6 months.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">AM</div>
+                        <div>
+                            <p class="text-sm font-bold">Anjali Mehta</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">CTO, Luminary Health</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 2 -->
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“Incredible UI/UX and backend robustness. The mobile app they delivered for EcoShop increased our daily active users by 150%. Highly recommend their full-stack expertise.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">RK</div>
+                        <div>
+                            <p class="text-sm font-bold">Rahul Kapoor</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">Founder, EcoShop</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 3 -->
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“From concept to launch, Forangex delivered ahead of schedule. Their data-driven SEO & hosting solutions doubled our organic reach. A true growth enabler.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">SD</div>
+                        <div>
+                            <p class="text-sm font-bold">Sophia D'Costa</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">CMO, NexaScale</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 4 (extra trust) -->
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border md:col-span-1">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“The team redesigned our entire legacy system to a modern microservices architecture. Zero downtime migration and 67% infrastructure cost reduction. Absolute pros.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">VJ</div>
+                        <div>
+                            <p class="text-sm font-bold">Vikram Jain</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">Director, Finwise Lending</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 5 -->
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“We were blown away by the post-launch support and detailed documentation. Forangex treats your project like their own. Couldn't ask for a better digital partner.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">LW</div>
+                        <div>
+                            <p class="text-sm font-bold">Leah Williams</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">Product Lead, LogiTrack</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 6 -->
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“Creative, technical, and business-savvy. They translated our rough idea into a full-scale SaaS product that investors loved. Best decision we made.”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">NT</div>
+                        <div>
+                            <p class="text-sm font-bold">Nikhil Tendulkar</p>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">CEO, Studio Noir</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- aggregated rating badge -->
+            <div class="flex justify-center mt-12">
+                <div class="bg-black/5 rounded-full px-6 py-3 inline-flex items-center gap-3 text-sm">
+                    <span class="font-bold text-black">⭐ 4.9 overall rating</span>
+                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                    <span class="text-gray-600">based on 130+ verified client reviews</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS + IMPACT — extra social proof & 'etc what every need it' -->
+    <section class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-8 text-center border-y soft-border py-12">
+            <div>
+                <p class="text-4xl md:text-5xl font-serif-alt font-bold text-black">150+</p>
+                <p class="text-[10px] uppercase tracking-wider text-gray-500 mt-2">enterprise projects</p>
+            </div>
+            <div>
+                <p class="text-4xl md:text-5xl font-serif-alt font-bold text-black">24/7</p>
+                <p class="text-[10px] uppercase tracking-wider text-gray-500 mt-2">support SLA</p>
+            </div>
+            <div>
+                <p class="text-4xl md:text-5xl font-serif-alt font-bold text-black">12</p>
+                <p class="text-[10px] uppercase tracking-wider text-gray-500 mt-2">countries served</p>
+            </div>
+            <div>
+                <p class="text-4xl md:text-5xl font-serif-alt font-bold text-black">99.99%</p>
+                <p class="text-[10px] uppercase tracking-wider text-gray-500 mt-2">uptime record</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION — contact / start new project (clean and aligned) -->
+    <section id="contact-inline" class="max-w-6xl mx-auto px-6 pb-24 pt-8">
+        <div class="bg-black text-white rounded-3xl p-10 md:p-16 text-center shadow-2xl">
+            <h2 class="text-3xl md:text-4xl font-serif-alt italic">Ready to create your success story?</h2>
+            <p class="text-white/70 max-w-lg mx-auto mt-3 text-sm">Let's turn your vision into a digital ecosystem that performs, scales, and inspires.</p>
+            <div class="flex flex-wrap justify-center gap-5 mt-8">
+                <a href="mailto:forangeinc@gmail.com" class="bg-white text-black px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition">Start a project ✦</a>
+                <a href="#work" class="border border-white/40 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">See case studies</a>
+            </div>
+            <p class="text-white/40 text-[10px] mt-6">forangeinc@gmail.com | +91 70585 48204</p>
+        </div>
+    </section>
+
+    <!-- FOOTER — refined same style -->
+    <footer class="border-t soft-border bg-[#FCFAF7] px-6 py-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5 text-[11px] font-semibold tracking-wider text-gray-500">
+            <div class="flex gap-6">
+                <span>© 2026 Forangex IT Solutions</span>
+                <span>•</span>
+                <span class="hover:text-black transition cursor-pointer">Privacy</span>
+                <span class="hover:text-black transition cursor-pointer">Terms</span>
+            </div>
+            <div class="flex gap-8">
+                <a href="#" class="hover:text-black transition">Twitter</a>
+                <a href="#" class="hover:text-black transition">LinkedIn</a>
+                <a href="https://www.instagram.com/forange_x/" class="hover:text-black transition">Instagram</a>
+            </div>
+            <div class="font-serif-alt italic text-gray-400 text-sm normal-case tracking-normal">Designed in Nashik — with purpose.</div>
+        </div>
+    </footer>
+
+    <!-- MOBILE MENU + SMOOTH INTERACTIONS SCRIPT -->
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => menu.classList.add('hidden'));
+            });
+        }
+
+        // Smooth scroll for any anchor links that point to existing IDs
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === "#" || targetId === "") return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Optional: simple fade-up effect on scroll for cards (just for elegance)
+        const observerOptions = { threshold: 0.05, rootMargin: "0px 0px -20px 0px" };
+        const fadeElements = document.querySelectorAll('.group, .review-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        fadeElements.forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(12px)";
+            el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
