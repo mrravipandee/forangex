@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "FitZone Gym Website",
+    "techStack": "React · Tailwind · Node.js",
+    "liveUrl": "#",
+    "clientReview": "“Pehle hum sirf offline clients lete the, but website ke baad online enquiries daily aane lage. Membership sales increase hui hai.”",
+    "clientName": "Rohit Patil, Gym Owner (Nashik)",
+    "images": [
+      "https://images.unsplash.com/photo-1558611848-73f7eb4001ab",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f"
+    ]
+  },
+
+  {
+    "id": 2,
+    "title": "SweetBite Cake Shop",
+    "techStack": "HTML · Tailwind · Firebase",
+    "liveUrl": "#",
+    "clientReview": "“Online cake orders lena easy ho gaya. Ab customers Instagram se directly website par order karte hain.”",
+    "clientName": "Pooja Sharma, Cake Shop Owner",
+    "images": [
+      "https://images.unsplash.com/photo-1551024601-bec78aea704b",
+      "https://images.unsplash.com/photo-1603532648955-039310d9ed75"
+    ]
+  },
+
+  {
+    "id": 3,
+    "title": "Shree Ganesh Kirana Store",
+    "techStack": "React · Express · MongoDB",
+    "liveUrl": "#",
+    "clientReview": "“Local delivery system banne ke baad area ke customers WhatsApp ke bajaye direct app use karte hain. Bohot easy ho gaya。”",
+    "clientName": "Mahesh Gupta, Grocery Store Owner",
+    "images": [
+      "https://images.unsplash.com/photo-1604719312566-8912e9c8a213",
+      "https://images.unsplash.com/photo-1586201375761-83865001e31c"
+    ]
+  },
+
+  {
+    "id": 4,
+    "title": "FreshMilk Dairy App",
+    "techStack": "Flutter · Firebase",
+    "liveUrl": "#",
+    "clientReview": "“Daily milk delivery tracking aur subscription system se pura kaam automate ho gaya. Customers bhi happy hain.”",
+    "clientName": "Suresh Yadav, Milk Distributor",
+    "images": [
+      "https://images.unsplash.com/photo-1563636619-e9143da7973b",
+      "https://images.unsplash.com/photo-1582719471384-894fbb16e074"
+    ]
+  },
+
+  {
+    "id": 5,
+    "title": "Urban Salon Booking System",
+    "techStack": "Next.js · Node.js",
+    "liveUrl": "#",
+    "clientReview": "“Appointment booking online hone laga hai. Ab phone calls kam aur system automated ho gaya hai.”",
+    "clientName": "Neha Verma, Salon Owner",
+    "images": [
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+      "https://images.unsplash.com/photo-1487412912498-0447578fcca8"
+    ]
+  }
+]

@@ -1,132 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Forangex • Work — Case studies & client stories</title>
-    
+
     <!-- Tailwind CSS + core utilities -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter + Playfair Display (elegant professional) -->
+
+    <!-- Google Fonts: Inter + Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
+        rel="stylesheet">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #FDFBF7;
             color: #141416;
         }
+
         .font-serif-alt {
             font-family: 'Playfair Display', serif;
         }
+
         .soft-border {
             border-color: rgba(0, 0, 0, 0.08);
         }
+
         .card-hover {
             transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
         }
+
         .card-hover:hover {
             transform: translateY(-6px);
             box-shadow: 0 25px 35px -15px rgba(0, 0, 0, 0.1);
             background-color: #ffffff;
             border-color: rgba(0, 0, 0, 0.2);
         }
+
         .img-morph {
             filter: grayscale(15%);
             transition: all 0.5s ease;
         }
+
         .img-morph:hover {
             filter: grayscale(0%);
             transform: scale(1.02);
         }
+
         .review-card {
             transition: all 0.25s ease;
         }
+
         .review-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.08);
         }
-        .underline-animate {
-            position: relative;
-        }
-        .underline-animate::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 0%;
-            height: 2px;
-            background: currentColor;
-            transition: width 0.25s ease;
-        }
-        .underline-animate:hover::after {
             width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(12px); }
-            100% { opacity: 1; transform: translateY(0); }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
-        .animate-fade-up {
-            animation: fadeUp 0.6s ease forwards;
+
+        .modal-container {
+            background: #FDFBF7;
+            max-width: 1300px;
+            width: 92%;
+            max-height: 90vh;
+            border-radius: 28px;
+            position: relative;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: black;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* Two column layout: left sticky, right scrollable */
+        .modal-content-wrapper {
+            display: flex;
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 28px 28px 28px;
+            gap: 32px;
+        }
+
+        /* Left column - sticky big image */
+        .left-sticky {
+            flex: 1.2;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        .right-scrollable {
+            flex: 0.9;
+            max-height: 75vh;
+            overflow-y: auto;
+            padding-right: 8px;
+            scrollbar-width: thin;
+        }
+
+        .right-scrollable::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .right-scrollable::-webkit-scrollbar-track {
+            background: #eaeaea;
+            border-radius: 10px;
+        }
+
+        .right-scrollable::-webkit-scrollbar-thumb {
+            background: #aaa;
+            border-radius: 10px;
+        }
+
+        .thumb-img {
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 16px;
+            opacity: 0.75;
+            border: 2px solid transparent;
+        }
+
+        .thumb-img:hover,
+        .thumb-img.active-thumb {
+            opacity: 1;
+            transform: scale(1.02);
+            border-color: #000;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-thumb {
+            transition: transform 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content-wrapper {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .left-sticky {
+                position: relative;
+                top: 0;
+                margin-bottom: 20px;
+            }
+
+            .right-scrollable {
+                max-height: 50vh;
+            }
+
+            .modal-container {
+                width: 95%;
+            }
         }
     </style>
 </head>
+
 <body class="antialiased">
 
-    <!-- NAVIGATION — consistent with main brand, active work state -->
+    <!-- NAVIGATION -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="text-2xl font-bold tracking-tighter flex items-center">
                 <img src="../assets/forangex-solution.svg" alt="Forangex Solution" class="w-22 h-10 mr-2">
             </div>
-            <div class="hidden md:flex items-center gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-gray-600">
+            <div
+                class="hidden md:flex items-center gap-8 text-[11px] font-bold tracking-[0.2em] uppercase text-gray-600">
                 <a href="/" class="hover:text-black transition-colors">Services</a>
                 <a href="/work" class="text-black border-b-2 border-black pb-0.5">Work</a>
                 <a href="/#pricing" class="hover:text-black transition-colors">Pricing</a>
                 <a href="/#contact" class="hover:text-black transition-colors">Contact</a>
             </div>
             <div class="flex items-center gap-4">
-                <a href="mailto:forangeinc@gmail.com" class="hidden sm:block border border-black px-5 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                <a href="mailto:forangeinc@gmail.com"
+                    class="hidden sm:block border border-black px-5 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">
                     Start Project →
                 </a>
                 <button id="mobile-menu-btn" class="md:hidden text-black focus:outline-none p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-8 space-y-6 text-center">
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-8 space-y-6 text-center">
             <a href="/" class="block text-xs font-bold uppercase tracking-widest text-gray-600">Services</a>
             <a href="/work" class="block text-xs font-bold uppercase tracking-widest text-black">Work</a>
             <a href="/#pricing" class="block text-xs font-bold uppercase tracking-widest text-gray-600">Pricing</a>
             <a href="/#contact" class="block text-xs font-bold uppercase tracking-widest text-gray-600">Contact</a>
-            <a href="mailto:forangeinc@gmail.com" class="inline-block border border-black px-8 py-3 text-[10px] font-bold uppercase tracking-widest">Start Project</a>
+            <a href="mailto:forangeinc@gmail.com"
+                class="inline-block border border-black px-8 py-3 text-[10px] font-bold uppercase tracking-widest">Start
+                Project</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION — centered text only, minimalist impact -->
+    <!-- HERO SECTION — centered text -->
     <section class="border-b border-black/10 bg-gradient-to-b from-[#FDFBF7] to-white">
         <div class="max-w-5xl mx-auto px-6 py-24 md:py-32 text-center">
             <div class="inline-block mb-5">
-                <span class="text-[10px] tracking-[0.4em] uppercase font-bold text-gray-400 bg-white/60 px-4 py-1.5 rounded-full">portfolio archive</span>
+                <span
+                    class="text-[10px] tracking-[0.4em] uppercase font-bold text-gray-400 bg-white/60 px-4 py-1.5 rounded-full">portfolio
+                    archive</span>
             </div>
-            <h1 class="text-4xl md:text-7xl lg:text-8xl font-serif-alt italic tracking-tight text-gray-900 leading-[1.1] max-w-4xl mx-auto">
+            <h1
+                class="text-4xl md:text-7xl lg:text-8xl font-serif-alt italic tracking-tight text-gray-900 leading-[1.1] max-w-4xl mx-auto">
                 Where ideas become <br><span class="border-b-4 border-black">digital legacy</span>
             </h1>
             <p class="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mt-6 leading-relaxed">
-                Every project tells a story of precision, creativity, and measurable growth. 
+                Every project tells a story of precision, creativity, and measurable growth.
                 Explore our finest work & client transformations.
             </p>
             <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs font-medium text-gray-500">
@@ -137,213 +283,39 @@
         </div>
     </section>
 
-    <!-- PREVIOUS WORK SCREENSHOTS GALLERY — real project showcase -->
+    <!-- PROJECT GRID (dynamic from data.json) -->
     <section class="max-w-7xl mx-auto px-6 py-20">
         <div class="text-center mb-14">
-            <span class="text-[11px] tracking-[0.3em] uppercase font-bold text-gray-500 bg-gray-100/80 px-4 py-1 rounded-full">featured work</span>
+            <span
+                class="text-[11px] tracking-[0.3em] uppercase font-bold text-gray-500 bg-gray-100/80 px-4 py-1 rounded-full">featured
+                work</span>
             <h2 class="text-3xl md:text-4xl font-serif-alt italic mt-4">Screenshots of our most recent triumphs</h2>
-            <p class="text-gray-500 max-w-xl mx-auto mt-2">From fintech dashboards to AI-powered platforms — each visual speaks of craft.</p>
+            <p class="text-gray-500 max-w-xl mx-auto mt-2">Click any project to explore full gallery & client insights.
+            </p>
         </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Project 1 -->
-            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
-                <div class="overflow-hidden h-64 bg-gray-100">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" 
-                         alt="NeoBank Analytics Dashboard" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Fintech</span>
-                        <span class="text-xs font-mono text-gray-400">2025</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-2 mb-2">NeoBank Pulse Dashboard</h3>
-                    <p class="text-gray-600 text-sm">Real-time transaction analytics with AI fraud detection. 40% faster insights, deployed across 3 enterprise clients.</p>
-                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>React</span><span>Node.js</span><span>WebSockets</span></div>
-                </div>
-            </div>
-            <!-- Project 2 -->
-            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
-                <div class="overflow-hidden h-64 bg-gray-100">
-                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80" 
-                         alt="EcoShop Cross-platform App" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">E‑commerce</span>
-                        <span class="text-xs font-mono text-gray-400">2025</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-2 mb-2">EcoShop Marketplace</h3>
-                    <p class="text-gray-600 text-sm">Cross-platform mobile app for sustainable goods. Boosted conversions by 78% after UX overhaul & 1-click checkout.</p>
-                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Flutter</span><span>Firebase</span><span>Stripe</span></div>
-                </div>
-            </div>
-            <!-- Project 3 -->
-            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
-                <div class="overflow-hidden h-64 bg-gray-100">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80" 
-                         alt="MediFlow Connect" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">HealthTech</span>
-                        <span class="text-xs font-mono text-gray-400">2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-2 mb-2">MediFlow Connect</h3>
-                    <p class="text-gray-600 text-sm">Telemedicine & patient management portal deployed across 12 clinics, reduced wait times by 55%.</p>
-                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Next.js</span><span>Python</span><span>Twilio</span></div>
-                </div>
-            </div>
-            <!-- Project 4 -->
-            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
-                <div class="overflow-hidden h-64 bg-gray-100">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c2236b16?auto=format&fit=crop&w=1000&q=80" 
-                         alt="LogiTrack Supply Chain" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Logistics</span>
-                        <span class="text-xs font-mono text-gray-400">2025</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-2 mb-2">LogiTrack AI</h3>
-                    <p class="text-gray-600 text-sm">Real-time fleet optimization with predictive ETA. 23% fuel reduction & 99.8% on-time delivery rate.</p>
-                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Vue.js</span><span>Go</span><span>Mapbox</span></div>
-                </div>
-            </div>
-            <!-- Project 5 -->
-            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
-                <div class="overflow-hidden h-64 bg-gray-100">
-                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1000&q=80" 
-                         alt="Creative Studio Portfolio" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">Creative</span>
-                        <span class="text-xs font-mono text-gray-400">2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-2 mb-2">Studio Noir Digital</h3>
-                    <p class="text-gray-600 text-sm">Award-winning immersive brand experience with WebGL + headless CMS. 210% increase in session duration.</p>
-                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Three.js</span><span>GSAP</span><span>Sanity</span></div>
-                </div>
-            </div>
-            <!-- Project 6 -->
-            <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover">
-                <div class="overflow-hidden h-64 bg-gray-100">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" 
-                         alt="Finwise Lending Platform" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">LendingTech</span>
-                        <span class="text-xs font-mono text-gray-400">2025</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-2 mb-2">Finwise Lending Suite</h3>
-                    <p class="text-gray-600 text-sm">Automated underwriting & KYC platform, processed $40M+ in loans within first quarter.</p>
-                    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-mono text-gray-500"><span>Angular</span><span>Django</span><span>PostgreSQL</span></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- extra CTA for more work -->
-        <div class="text-center mt-14">
-            <a href="#contact-inline" class="inline-flex items-center gap-2 border-b border-black pb-1 text-sm font-medium uppercase tracking-wide hover:gap-3 transition-all">View all case studies →</a>
+        <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Loading state -->
+            <div class="col-span-full text-center py-12 text-gray-500">Loading projects...</div>
         </div>
     </section>
 
-    <!-- CLIENT REVIEWS & TESTIMONIALS — authentic feedback -->
+    <!-- CLIENT REVIEWS SECTION (static testimonials) -->
     <section class="bg-white border-y soft-border py-20 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-14">
-                <span class="text-[11px] tracking-[0.3em] uppercase font-bold text-gray-500 bg-gray-100 px-4 py-1 rounded-full">real voices</span>
+                <span
+                    class="text-[11px] tracking-[0.3em] uppercase font-bold text-gray-500 bg-gray-100 px-4 py-1 rounded-full">real
+                    voices</span>
                 <h2 class="text-3xl md:text-4xl font-serif-alt italic mt-4">What our clients say</h2>
                 <p class="text-gray-500 max-w-lg mx-auto mt-2">Trusted by founders, CTOs, and global brands.</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
-                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
-                    <p class="text-gray-700 text-base leading-relaxed italic">“Forangex didn't just build our platform — they became strategic partners. The attention to security and scalability is unmatched. Our user base grew 3x in 6 months.”</p>
-                    <div class="flex items-center gap-3 mt-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">AM</div>
-                        <div>
-                            <p class="text-sm font-bold">Anjali Mehta</p>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">CTO, Luminary Health</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 2 -->
-                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
-                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
-                    <p class="text-gray-700 text-base leading-relaxed italic">“Incredible UI/UX and backend robustness. The mobile app they delivered for EcoShop increased our daily active users by 150%. Highly recommend their full-stack expertise.”</p>
-                    <div class="flex items-center gap-3 mt-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">RK</div>
-                        <div>
-                            <p class="text-sm font-bold">Rahul Kapoor</p>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">Founder, EcoShop</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 3 -->
-                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
-                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
-                    <p class="text-gray-700 text-base leading-relaxed italic">“From concept to launch, Forangex delivered ahead of schedule. Their data-driven SEO & hosting solutions doubled our organic reach. A true growth enabler.”</p>
-                    <div class="flex items-center gap-3 mt-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">SD</div>
-                        <div>
-                            <p class="text-sm font-bold">Sophia D'Costa</p>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">CMO, NexaScale</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 4 (extra trust) -->
-                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border md:col-span-1">
-                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
-                    <p class="text-gray-700 text-base leading-relaxed italic">“The team redesigned our entire legacy system to a modern microservices architecture. Zero downtime migration and 67% infrastructure cost reduction. Absolute pros.”</p>
-                    <div class="flex items-center gap-3 mt-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">VJ</div>
-                        <div>
-                            <p class="text-sm font-bold">Vikram Jain</p>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">Director, Finwise Lending</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 5 -->
-                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
-                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
-                    <p class="text-gray-700 text-base leading-relaxed italic">“We were blown away by the post-launch support and detailed documentation. Forangex treats your project like their own. Couldn't ask for a better digital partner.”</p>
-                    <div class="flex items-center gap-3 mt-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">LW</div>
-                        <div>
-                            <p class="text-sm font-bold">Leah Williams</p>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">Product Lead, LogiTrack</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 6 -->
-                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
-                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
-                    <p class="text-gray-700 text-base leading-relaxed italic">“Creative, technical, and business-savvy. They translated our rough idea into a full-scale SaaS product that investors loved. Best decision we made.”</p>
-                    <div class="flex items-center gap-3 mt-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">NT</div>
-                        <div>
-                            <p class="text-sm font-bold">Nikhil Tendulkar</p>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-wide">CEO, Studio Noir</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- aggregated rating badge -->
-            <div class="flex justify-center mt-12">
-                <div class="bg-black/5 rounded-full px-6 py-3 inline-flex items-center gap-3 text-sm">
-                    <span class="font-bold text-black">⭐ 4.9 overall rating</span>
-                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
-                    <span class="text-gray-600">based on 130+ verified client reviews</span>
-                </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="static-reviews">
+                <!-- filled by JS but static fallback -->
             </div>
         </div>
     </section>
 
-    <!-- STATS + IMPACT — extra social proof & 'etc what every need it' -->
+    <!-- STATS SECTION -->
     <section class="py-20 px-6 max-w-7xl mx-auto">
         <div class="grid md:grid-cols-4 gap-8 text-center border-y soft-border py-12">
             <div>
@@ -365,82 +337,428 @@
         </div>
     </section>
 
-    <!-- CALL TO ACTION — contact / start new project (clean and aligned) -->
+    <!-- MODAL: left sticky image, right scrollable thumbnails + details -->
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-close" id="closeModalBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+            <div class="modal-content-wrapper">
+                <!-- LEFT STICKY: main large image -->
+                <div class="left-sticky">
+                    <div class="rounded-2xl overflow-hidden bg-gray-100 shadow-xl">
+                        <img id="modalMainImage" src="" alt="Main project view"
+                            class="w-full h-auto object-cover min-h-[320px] md:min-h-[420px]">
+                    </div>
+                </div>
+
+                <!-- RIGHT SCROLLABLE: thumbnails + details -->
+                <div class="right-scrollable">
+                    <!-- Thumbnails container (dynamic based on project images) -->
+                    <div id="thumbnailsContainer" class="grid grid-cols-2 gap-4 mb-8">
+                        <!-- thumbnails injected dynamically -->
+                    </div>
+
+                    <!-- Bottom details: client review, live link, tech stack -->
+                    <div class="border-t border-gray-200 pt-6 mt-2">
+                        <div class="flex flex-wrap justify-between items-start gap-4">
+                            <div>
+                                <h3 id="modalProjectTitle" class="text-2xl font-serif-alt font-semibold">Project Title
+                                </h3>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <span id="modalTechStack"
+                                        class="text-xs text-gray-500 font-mono bg-gray-100 px-2 py-1 rounded-full"></span>
+                                </div>
+                                <div class="mt-5 bg-gray-50 p-5 rounded-xl max-w-md">
+                                    <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Client
+                                        testimonial</p>
+                                    <p id="modalClientReview" class="text-gray-700 italic text-sm mt-2 leading-relaxed">
+                                        “...”</p>
+                                    <p id="modalClientName" class="text-xs font-semibold mt-3 text-black">— Client Name
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-left md:text-right">
+                                <a id="modalLiveLink" href="#" target="_blank"
+                                    class="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-full text-sm font-bold uppercase tracking-wide hover:bg-gray-800 transition shadow-md">Live
+                                    Project →</a>
+                                <p class="text-[10px] text-gray-400 mt-2">demo / production</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALL TO ACTION -->
     <section id="contact-inline" class="max-w-6xl mx-auto px-6 pb-24 pt-8">
         <div class="bg-black text-white rounded-3xl p-10 md:p-16 text-center shadow-2xl">
             <h2 class="text-3xl md:text-4xl font-serif-alt italic">Ready to create your success story?</h2>
-            <p class="text-white/70 max-w-lg mx-auto mt-3 text-sm">Let's turn your vision into a digital ecosystem that performs, scales, and inspires.</p>
+            <p class="text-white/70 max-w-lg mx-auto mt-3 text-sm">Let's turn your vision into a digital ecosystem that
+                performs, scales, and inspires.</p>
             <div class="flex flex-wrap justify-center gap-5 mt-8">
-                <a href="mailto:forangeinc@gmail.com" class="bg-white text-black px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition">Start a project ✦</a>
-                <a href="#work" class="border border-white/40 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">See case studies</a>
+                <a href="mailto:forangeinc@gmail.com"
+                    class="bg-white text-black px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition">Start
+                    a project ✦</a>
+                <a href="#projects-grid"
+                    class="border border-white/40 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition">See
+                    case studies</a>
             </div>
             <p class="text-white/40 text-[10px] mt-6">forangeinc@gmail.com | +91 70585 48204</p>
         </div>
     </section>
 
-    <!-- FOOTER — refined same style -->
+    <!-- FOOTER -->
     <footer class="border-t soft-border bg-[#FCFAF7] px-6 py-10">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5 text-[11px] font-semibold tracking-wider text-gray-500">
-            <div class="flex gap-6">
-                <span>© 2026 Forangex IT Solutions</span>
-                <span>•</span>
-                <span class="hover:text-black transition cursor-pointer">Privacy</span>
-                <span class="hover:text-black transition cursor-pointer">Terms</span>
-            </div>
-            <div class="flex gap-8">
-                <a href="#" class="hover:text-black transition">Twitter</a>
-                <a href="#" class="hover:text-black transition">LinkedIn</a>
-                <a href="https://www.instagram.com/forange_x/" class="hover:text-black transition">Instagram</a>
-            </div>
-            <div class="font-serif-alt italic text-gray-400 text-sm normal-case tracking-normal">Designed in Nashik — with purpose.</div>
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5 text-[11px] font-semibold tracking-wider text-gray-500">
+            <div class="flex gap-6"><span>© 2026 Forangex IT Solutions</span><span>•</span><span
+                    class="hover:text-black transition cursor-pointer">Privacy</span><span
+                    class="hover:text-black transition cursor-pointer">Terms</span></div>
+            <div class="flex gap-8"><a href="#" class="hover:text-black transition">Twitter</a><a href="#"
+                    class="hover:text-black transition">LinkedIn</a><a href="https://www.instagram.com/forange_x/"
+                    class="hover:text-black transition">Instagram</a></div>
+            <div class="font-serif-alt italic text-gray-400 text-sm normal-case tracking-normal">Designed in Nashik —
+                with purpose.</div>
         </div>
     </footer>
 
-    <!-- MOBILE MENU + SMOOTH INTERACTIONS SCRIPT -->
     <script>
+        // --- FETCH DATA FROM data.json (and fallback to inline if needed) ---
+        let projectsData = [];
+
+        async function loadProjects() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('HTTP error');
+                const data = await response.json();
+                if (data.projects && Array.isArray(data.projects)) {
+                    projectsData = data.projects;
+                } else {
+                    throw new Error('Invalid structure');
+                }
+            } catch (error) {
+                console.warn("data.json not found or invalid, using fallback inline data.");
+                // Fallback inline data (same as original but ensures modal works)
+                projectsData = [
+                    {
+                        id: 1,
+                        title: "FitZone Gym Website",
+                        techStack: "React · Tailwind · Node.js",
+                        liveUrl: "#",
+                        clientReview: "“Pehle hum sirf offline clients lete the, but website ke baad online enquiries daily aane lage.”",
+                        clientName: "Rohit Patil, Gym Owner (Nashik)",
+                        images: [
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDdIw55NYDeZnIXLff1ky6Q-Q7ZiBEV4gWKA&s",
+                            "https://images.unsplash.com/photo-1571902943202-507ec2618e8f",
+                            "https://mir-s3-cdn-cf.behance.net/projects/404/cc421e220369867.Y3JvcCwxNDQwLDExMjYsMCww.jpg"
+                        ]
+                    },
+
+                    {
+                        id: 2,
+                        title: "SweetBite Cake Shop",
+                        techStack: "HTML · Tailwind · Firebase",
+                        liveUrl: "#",
+                        clientReview: "“Online cake orders lena easy ho gaya. Instagram se direct orders aate hain.”",
+                        clientName: "Pooja Sharma, Cake Shop Owner",
+                        images: [
+                            "https://s.tmimgcdn.com/scr/1200x750/504900/sweet-bite-cake-shop-amp-pastry-wordpress-elementor-theme_504912-original.jpg",
+                            "https://img.freepik.com/free-vector/cake-factory-landing-page-template_23-2148861830.jpg"
+                        ]
+                    },
+
+                    {
+                        id: 3,
+                        title: "Shree RK Mart Store",
+                        techStack: "React · Express · MongoDB",
+                        liveUrl: "#",
+                        clientReview: "“Local delivery system ke baad customers direct app use karte hain.”",
+                        clientName: "Mahesh Pandey, Grocery Store Owner",
+                        images: [
+                            "https://cdn.dribbble.com/userupload/15401314/file/original-1f2a5e3d9d9c59e6138f427a37953062.png?format=webp&resize=400x300&vertical=center",
+                            "https://cdn.dribbble.com/userupload/41495892/file/original-4966de4a7d766f2869f55a345ad12ec4.jpg?resize=400x0"
+                        ]
+                    },
+
+                    {
+                        id: 4,
+                        title: "FreshMilk Dairy App",
+                        techStack: "Flutter · Firebase",
+                        liveUrl: "#",
+                        clientReview: "“Milk subscription system se pura kaam automate ho gaya.”",
+                        clientName: "Sunil Kumar, Dairy Owner",
+                        images: [
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGPbbaNtYh9QtEsgA2V61oTj5Cg2oaq0VVxg&s",
+                            "https://play-lh.googleusercontent.com/XdIx3svsiVeB3jKTquaJm_AWFKK82GTZxktzqV0PDr4mIjZg2LHOKSgg-osfnuDRsw=w526-h296-rw",
+                            "https://meridairy.in/images/dashboard.png"
+                        ]
+                    },
+
+                    {
+                        id: 5,
+                        title: "Urban Salon Booking",
+                        techStack: "Next.js · Node.js",
+                        liveUrl: "#",
+                        clientReview: "“Online booking system se appointment manage karna easy ho gaya.”",
+                        clientName: "Neha Verma, Salon Owner",
+                        images: [
+                            "https://cdn.dribbble.com/userupload/17183931/file/original-878418b03c96e0a31e47ec9a905f90cd.png?format=webp&resize=400x300&vertical=center",
+                            "https://cdn.dribbble.com/userupload/15588155/file/original-043ebd0b0902a6c8de1f6560a68635c3.jpg?crop=0x0-4800x3600&format=webp&resize=400x300&vertical=center",
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP1aT7DYV40KA0qQi6Kth4yo1j2e4__PoX0A&s"
+                        ]
+                    },
+
+                    {
+                        id: 6,
+                        title: "Nodel Medical Store",
+                        techStack: "React · Firebase",
+                        liveUrl: "#",
+                        clientReview: "“Medicines order karna online easy ho gaya. Customers repeat aate hain.”",
+                        clientName: "Abdul Malik, Medical Owner",
+                        images: [
+                            "https://empiricinfotech.com/api/image//app/media/blog/1730960931188_Healthcare%20App%20Development%20in%205%20Simple%20Steps.png",
+                            "https://cdn.dribbble.com/userupload/44955243/file/6d1e02072a0bb35ac4769885af9e0f85.png?format=webp&resize=400x300&vertical=center"
+                        ]
+                    },
+
+                    {
+                        id: 7,
+                        title: "Tandoori Junction Restaurant",
+                        techStack: "HTML · JS · Razorpay",
+                        liveUrl: "#",
+                        clientReview: "“Online food orders badh gaye. Website se direct orders milte hain.”",
+                        clientName: "Amit Singh, Restaurant Owner",
+                        images: [
+                            "https://www.appindia.co.in/blog/wp-content/uploads/2021/05/restaurant-booking-app.png",
+                            "https://cdn.dribbble.com/userupload/4030268/file/original-af1092080698f7e0e622448ca55c1300.jpg?resize=400x0",
+                        ]
+                    },
+
+                    {
+                        id: 8,
+                        title: "Smart Tuition Classes",
+                        techStack: "React · Node.js",
+                        liveUrl: "#",
+                        clientReview: "“Students enrollment online hone laga hai. System simple aur useful hai.”",
+                        clientName: "Ankit Sir, Coaching Owner",
+                        images: [
+                            "https://s3.envato.com/files/345422874/2.png",
+                            "https://s3.envato.com/files/345422874/1.png"
+                        ]
+                    },
+
+                    {
+                        id: 9,
+                        title: "FreshVeggies Delivery",
+                        techStack: "Flutter · Firebase",
+                        liveUrl: "#",
+                        clientReview: "“Daily sabzi delivery manage karna easy ho gaya app se.”",
+                        clientName: "Sanjay Yadav, Vegetable Supplier",
+                        images: [
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7oJDssoDqc-BlnH5rAYQCEkancVf9Mp-QWQ&s",
+                            "https://cdn.dribbble.com/userupload/28351640/file/original-aa780e8b50300506e96d67f8637deca9.png?resize=752x&vertical=center",
+                            "https://cdn.dribbble.com/userupload/14125766/file/original-fc4fde2bafd1dfd516fa855e295c488e.jpg?resize=2048x1536&vertical=center"
+                        ]
+                    },
+
+                    {
+                        id: 10,
+                        title: "AutoCare Garage",
+                        techStack: "HTML · Tailwind",
+                        liveUrl: "#",
+                        clientReview: "“Car servicing bookings website se hone lage. Bohot help mila.”",
+                        clientName: "Imran Sheikh, Garage Owner",
+                        images: [
+                            "https://miro.medium.com/v2/resize:fit:1200/1*PmTiTSk2qawMdhFcvsajYw.jpeg",
+                            "https://cdn.dribbble.com/userupload/27645978/file/original-1ea838ccc06087b0581852fc67400038.jpg?resize=400x300"
+                        ]
+                    },
+
+                    {
+                        id: 11,
+                        title: "Shivam Electronics Shop",
+                        techStack: "React · Node.js",
+                        liveUrl: "#",
+                        clientReview: "“Online product listing se sales increase hui.”",
+                        clientName: "Shivam Agarwal, Electronics Shop",
+                        images: [
+                            "https://cdn.dribbble.com/userupload/44496440/file/7f0ab650196fe0ba156bed1a028f390a.png?format=webp&resize=400x300&vertical=center",
+                            "https://s.tmimgcdn.com/scr/400x250/566400/gtfix-pc-repair-services-website-template_566439-original.jpg"
+                        ]
+                    },
+
+                    {
+                        id: 12,
+                        title: "Quick Laundry Service",
+                        techStack: "Flutter · Firebase",
+                        liveUrl: "#",
+                        clientReview: "“Pickup & delivery system se business grow ho raha hai.”",
+                        clientName: "Deepak Mishra, Laundry Owner",
+                        images: [
+                            "https://cdn.dribbble.com/userupload/32884478/file/original-b5fe250721ceb5c81cba67f0c8ed952c.png?format=webp&resize=400x300&vertical=center",
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjcMnqyxG6IXYm9WQSVJtKSPLvUDT7RGri5w&s"
+                        ]
+                    }
+                ];
+            }
+            renderProjectCards();
+            renderStaticReviews();
+        }
+
+        function renderProjectCards() {
+            const gridContainer = document.getElementById('projects-grid');
+            if (!gridContainer) return;
+            if (!projectsData.length) {
+                gridContainer.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500">No projects found.</div>';
+                return;
+            }
+            gridContainer.innerHTML = projectsData.map((project, idx) => `
+                <div class="group bg-white rounded-2xl border soft-border overflow-hidden card-hover cursor-pointer" data-project-index="${idx}">
+                    <div class="overflow-hidden h-64 bg-gray-100">
+                        <img src="${project.images[0]}" alt="${project.title}" class="w-full h-full object-cover img-morph transition duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded">${project.techStack.split('·')[0].trim()}</span>
+                            <span class="text-xs font-mono text-gray-400">2025</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mt-2 mb-2">${project.title}</h3>
+                        <p class="text-gray-600 text-sm">${project.clientReview.substring(0, 80)}...</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // attach click listeners to cards
+            document.querySelectorAll('[data-project-index]').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const idx = parseInt(card.getAttribute('data-project-index'));
+                    openModal(idx);
+                });
+            });
+        }
+
+        function renderStaticReviews() {
+            const reviewsContainer = document.getElementById('static-reviews');
+            if (!reviewsContainer) return;
+            const reviews = [
+                { name: "Anjali Mehta", role: "CTO, Luminary Health", text: "Forangex didn't just build our platform — they became strategic partners. Security & scalability unmatched. User base grew 3x." },
+                { name: "Rahul Kapoor", role: "Founder, EcoShop", text: "Incredible UI/UX and backend. Mobile app increased DAU by 150%. Highly recommend full-stack expertise." },
+                { name: "Sophia D'Costa", role: "CMO, NexaScale", text: "Delivered ahead of schedule. Data-driven SEO doubled organic reach. A true growth enabler." }
+            ];
+            reviewsContainer.innerHTML = reviews.map(rev => `
+                <div class="review-card bg-[#FCFAF7] p-7 rounded-2xl border soft-border">
+                    <div class="flex gap-1 text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-700 text-base leading-relaxed italic">“${rev.text}”</p>
+                    <div class="flex items-center gap-3 mt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold text-sm">${rev.name.charAt(0)}</div>
+                        <div><p class="text-sm font-bold">${rev.name}</p><p class="text-[10px] text-gray-500 uppercase">${rev.role}</p></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal logic with left sticky & right scrollable thumbnails
+        let currentProject = null;
+        const modal = document.getElementById('projectModal');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const modalMainImg = document.getElementById('modalMainImage');
+        const thumbContainer = document.getElementById('thumbnailsContainer');
+        const modalTitle = document.getElementById('modalProjectTitle');
+        const modalTech = document.getElementById('modalTechStack');
+        const modalClientReview = document.getElementById('modalClientReview');
+        const modalClientName = document.getElementById('modalClientName');
+        const modalLiveLink = document.getElementById('modalLiveLink');
+
+        function openModal(projectIndex) {
+            const project = projectsData[projectIndex];
+            if (!project) return;
+            currentProject = project;
+            // Fill main data
+            modalTitle.innerText = project.title;
+            modalTech.innerText = project.techStack;
+            modalClientReview.innerText = project.clientReview;
+            modalClientName.innerText = `— ${project.clientName}`;
+            modalLiveLink.href = project.liveUrl;
+            modalMainImg.src = project.images[0];
+
+            // Render thumbnails (all images from project.images)
+            const imagesList = project.images;
+            thumbContainer.innerHTML = imagesList.map((img, idx) => `
+                <div class="gallery-thumb cursor-pointer" data-thumb-index="${idx}">
+                    <img src="${img}" alt="thumb ${idx + 1}" class="thumb-img w-full rounded-xl object-cover aspect-square border-2 border-transparent ${idx === 0 ? 'active-thumb border-black' : ''}">
+                </div>
+            `).join('');
+
+            // Attach click events to thumbnails
+            document.querySelectorAll('[data-thumb-index]').forEach(thumbDiv => {
+                thumbDiv.addEventListener('click', (e) => {
+                    const idx = parseInt(thumbDiv.getAttribute('data-thumb-index'));
+                    const newSrc = currentProject.images[idx];
+                    if (newSrc) {
+                        modalMainImg.src = newSrc;
+                        // update active class
+                        document.querySelectorAll('.thumb-img').forEach((img, i) => {
+                            if (i === idx) {
+                                img.classList.add('active-thumb', 'border-black');
+                            } else {
+                                img.classList.remove('active-thumb', 'border-black');
+                            }
+                        });
+                    }
+                });
+            });
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // reset right scroll to top (optional)
+            const rightScroll = document.querySelector('.right-scrollable');
+            if (rightScroll) rightScroll.scrollTop = 0;
+        }
+
+        function closeModalFunc() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closeBtn.addEventListener('click', closeModalFunc);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalFunc();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModalFunc();
+        });
+
         // Mobile menu toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => menu.classList.add('hidden'));
-            });
+            btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
         }
 
-        // Smooth scroll for any anchor links that point to existing IDs
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === "#" || targetId === "") return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    e.preventDefault();
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Optional: simple fade-up effect on scroll for cards (just for elegance)
-        const observerOptions = { threshold: 0.05, rootMargin: "0px 0px -20px 0px" };
+        // Fade-up observer for cards
+        const observerOptions = { threshold: 0.05 };
         const fadeElements = document.querySelectorAll('.group, .review-card');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                    observer.unobserve(entry.target);
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)"; observer.unobserve(entry.target); } });
         }, observerOptions);
-        fadeElements.forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(12px)";
-            el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-            observer.observe(el);
-        });
+        setTimeout(() => {
+            document.querySelectorAll('.group, .review-card').forEach(el => {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(12px)";
+                el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                observer.observe(el);
+            });
+        }, 200);
+
+        loadProjects();
     </script>
 </body>
+
 </html>
